@@ -1,43 +1,45 @@
-<!-- ampli - ampoule - applique - aquarium - barreson - kodi - lampadaire - lampe - lumext - nswitch - playstation - prise - rad - sapin - spot - tv - wallplug - wii - xbox -->
+<!-- ampli - ampli2 - ampoule - applique - applique2 - aquarium - barreson - bluray - chainehifi - dvd - freetv - freewifi - kodi - lampadaire 
+- lampe - lum1 - lum2 - lum3 - lumext - nswitch - playstation - prise - rad - sapin - secheserviette - spot - tv - wallplug - wii - xbox -->
 
 <div style="width:110px;height:110px;display:inline!important;" class="cmd reportModeHidden cmd-widget" data-type="action" data-subtype="other" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#">
 	<a class="iconCmd#uid# btn btn-sm action cmdName tooltips" title="#name#" style="background-color:transparent!important;border-color:transparent !important;"></a>
-  <script>
-  var valueTaille = is_numeric('#taille#') ? parseFloat('#taille#'):100;
+<script>
+  var valueTaille = is_numeric('#taille#') ? parseFloat('#taille#'):90;
   var paramTaille = '/height='+valueTaille+'px width='+valueTaille+'px';
   var valueType = ('#type#' !='#'+'type#') ? "#type#":"defaut";
   var srcImgOn  = "plugins/widget/core/template/dashboard/cmd.action.other.IconAction/"+valueType+"_on.png";
   var srcImgOff = "plugins/widget/core/template/dashboard/cmd.action.other.IconAction/"+valueType+"_off.png";
   
  if(jeedom.cmd.normalizeName('#name#') == 'on'){
-	  if('#state#' != ''){
+	if('#state#' != ''){
 		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOff+'" '+paramTaille+'>');
-	  }else{
-		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOn+'" '+paramTaille+'>');
 	}
-	}else{
+   	else{
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOn+'" '+paramTaille+'>');
+	}}
+    else{
 		if('#state#' != ''){
 		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOn+'" '+paramTaille+'>');
-	  }else{
-		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOff+'" '+paramTaille+'>');
-	  }
 	}
+    else{
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOff+'" '+paramTaille+'>');
+	}}
   
 		jeedom.cmd.update['#id#'] = function(_options){
 		if(jeedom.cmd.normalizeName('#name#') == 'on'){	
 		  if(parseInt(_options.display_value) >= 1 ) {
 			  $('.cmd[data-cmd_uid=#uid#]').hide();
-		  }else{
-			  $('.cmd[data-cmd_uid=#uid#]').show();
 		  }
-		}else{
+          else{
+			  $('.cmd[data-cmd_uid=#uid#]').show();
+		  }}
+          else{
 		  if(parseInt(_options.display_value) <= 0 ) {
 				$('.cmd[data-cmd_uid=#uid#]').hide();
 			}else{
 				$('.cmd[data-cmd_uid=#uid#]').show();
-			}
-		}
-	}
+		  }}}
+        
 	jeedom.cmd.update['#id#']({display_value:'#state#'});
 	
 	$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').on('click', function () {
