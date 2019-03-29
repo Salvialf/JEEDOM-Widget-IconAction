@@ -1,11 +1,12 @@
-<!-- ampli - ampli2 - ampoule - applique - applique2 - aquarium - barreson - bluray - chainehifi - dvd - freetv - freewifi - kodi - lampadaire 
-- lampe - lum1 - lum2 - lum3 - lumext - nswitch - playstation - prise - rad - sapin - secheserviette - spot - tv - wallplug - wii - xbox -->
+<!-- ampli - ampli2 - ampoule - applique - applique2 - aquarium - barreson - bluray - chainehifi - dvd - freewifi - kodi - lampadaire - lampe - lum1 
+- lum2 - lum3 - lumext - nswitch - playstation - prise - rad - sapin - spot - tv - wallplug - wii - xbox -->
 
 <div style="width:110px;height:110px;display:inline!important;" class="cmd reportModeHidden cmd-widget" data-type="action" data-subtype="other" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#">
 	<a class="iconCmd#uid# btn btn-sm action cmdName tooltips" title="#name#" style="background-color:transparent!important;border-color:transparent !important;"></a>
 <script>
-  var valueTaille = is_numeric('#taille#') ? parseFloat('#taille#'):90;
-  var paramTaille = '/height='+valueTaille+'px width='+valueTaille+'px';
+  var valueH = is_numeric('#hauteur#') ? parseFloat('#hauteur#'):90;
+  var valueL = is_numeric('#largeur#') ? parseFloat('#largeur#'):90;
+  var paramTaille = 'height='+valueH+'px width='+valueL+'px';
   var valueType = ('#type#' !='#'+'type#') ? "#type#":"defaut";
   var srcImgOn  = "plugins/widget/core/template/dashboard/cmd.action.other.IconAction/"+valueType+"_on.png";
   var srcImgOff = "plugins/widget/core/template/dashboard/cmd.action.other.IconAction/"+valueType+"_off.png";

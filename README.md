@@ -15,11 +15,10 @@ Après avoir appliqué le widget sur les 2 commandes 'On' & 'Off' de votre équi
 Tous les paramètres optionnels doivent être appliqués sur les 2 commandes.
 <blockquote><b>Conseil:</b> Décocher la case 'Afficher' sur la commande 'Etat' associée.</blockquote>
 
-
-Il est également possible de spécifier la taille des icônes par l'ajout d'un paramètre optionnel "<i><b>taille</b></i>" ayant pour valeur la dimension souhaitée.
-Par exemple: taille:100 = icône de 100px100px. Par défaut les icônes font 90px90px.
+Il est également possible de spécifier la hauteur et la largeur des icônes par l'ajout de paramètres optionnels "<i><b>hauteur</b></i>" & "<i><b>largeur</b></i>" ayant pour valeur la dimension souhaitée (exemple: hauteur=120 - largeur=90 -> icône de 120px*90px).
+Par défaut les icônes font 90px90px.
 
 
 Vous avez la possibilité d'inclure vos propres icônes dans le widget. Le nommage des icônes est normalisé et doit respecter le format suivant: 
 "type_off.png" & "type_on.png". 
-Pour ajouter vos icônes, sur la page du Widget, cliquer sur le bouton "Fichiers" tout en haut puis "choisir un fichier" et ajouter vos images une par une. 
+Pour ajouter vos icônes, sur la page du Widget, cliquer sur le bouton "Fichiers" tout en haut puis "choisir un fichier" et ajouter vos images une par une.
