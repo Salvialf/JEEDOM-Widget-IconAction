@@ -1,0 +1,50 @@
+<!-- ampli - ampli2 - ampoule - applique - applique2 - aquarium - barreson - bluray - chainehifi - dvd - freewifi - kodi - lampadaire - lampe - lum1 
+- lum2 - lum3 - lumext - nswitch - playstation - prise - rad - sapin - spot - tv - wallplug - wii - xbox -->
+
+<div class="cmd" data-type="action" data-subtype="other" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#">
+	<a class="iconCmd#uid# action"></a>
+<script>
+  var valueH = is_numeric('#hauteur2#') ? parseFloat('#hauteur2#'):80;
+  var valueL = is_numeric('#largeur2#') ? parseFloat('#largeur2#'):80;
+  var paramTaille = 'height='+valueH+'px width='+valueL+'px';
+  var valueType = ('#type#' !='#'+'type#') ? "#type#":"defaut";
+  var srcImgOn  = "plugins/widget/core/template/dashboard/cmd.action.other.IconAction/"+valueType+"_on.png";
+  var srcImgOff = "plugins/widget/core/template/dashboard/cmd.action.other.IconAction/"+valueType+"_off.png";
+  
+ if(jeedom.cmd.normalizeName('#name#') == 'on'){
+	if('#state#' != ''){
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOff+'" '+paramTaille+'>');
+	}
+   	else{
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOn+'" '+paramTaille+'>');
+	}}
+    else{
+		if('#state#' != ''){
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOn+'" '+paramTaille+'>');
+	}
+    else{
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOff+'" '+paramTaille+'>');
+	}}
+  
+		jeedom.cmd.update['#id#'] = function(_options){
+		if(jeedom.cmd.normalizeName('#name#') == 'on'){	
+		  if(parseInt(_options.display_value) >= 1 ) {
+			  $('.cmd[data-cmd_uid=#uid#]').hide();
+		  }
+          else{
+			  $('.cmd[data-cmd_uid=#uid#]').show();
+		  }}
+          else{
+		  if(parseInt(_options.display_value) <= 0 ) {
+				$('.cmd[data-cmd_uid=#uid#]').hide();
+			}else{
+				$('.cmd[data-cmd_uid=#uid#]').show();
+		  }}}
+        
+	jeedom.cmd.update['#id#']({display_value:'#state#'});
+	
+	$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').on('click', function () {
+		jeedom.cmd.execute({id: '#id#'});
+	});
+</script>
+</div>

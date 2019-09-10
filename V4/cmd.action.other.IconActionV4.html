@@ -1,0 +1,79 @@
+<!-- ampli - ampli2 - ampoule - applique - applique2 - aquarium - barreson - bluray - chainehifi - dvd - freewifi - kodi - lampadaire - lampe - lum1 
+- lum2 - lum3 - lumext - nswitch - playstation - prise - rad - sapin - spot - tv - wallplug - wii - xbox -->
+	
+<div class="cmd #history# tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
+ <div class="title #hide_name#">
+    <div class="cmdName">#valueName#</div>
+  </div>
+  	<div class="iconCmd#uid# cursor tooltips" title="#name_display#"></div>
+    <span class="timeCmd#uid# timeCmd label label-default"></span>
+<style>
+.iconCmd#uid#{
+  margin:0px 4px 4px 4px;
+  }
+.iconCmd#uid#:hover{
+  opacity:0.8;
+  }
+</style>
+<script>
+  var valueH = is_numeric('#hauteur#') ? parseFloat('#hauteur#'):75;
+  var valueL = is_numeric('#largeur#') ? parseFloat('#largeur#'):75;
+  var paramTaille = 'height='+valueH+'px width='+valueL+'px';
+  var valueType = ('#type#' !='#'+'type#') ? "#type#":"defaut";
+  var valueFile = ('#extension#' !='#'+'extension#') ? "#extension#":"png";
+  var srcImgOn  = "data/customTemplates/dashboard/cmd.action.other.IconAction/"+valueType+"_on."+valueFile;
+  var srcImgOff = "data/customTemplates/dashboard/cmd.action.other.IconAction/"+valueType+"_off."+valueFile;
+  
+ if(jeedom.cmd.normalizeName('#name#') == 'on'){
+	if('#state#' != ''){
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOff+'" '+paramTaille+' alt='+valueType+'>');
+	}
+   	else{
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOn+'" '+paramTaille+' alt='+valueType+'>');
+	}}
+    else{
+		if('#state#' != ''){
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOn+'" '+paramTaille+' alt='+valueType+'>');
+	}
+    else{
+		$('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').append('<img src="'+srcImgOff+'" '+paramTaille+' alt='+valueType+'>');
+	}}
+  
+		jeedom.cmd.update['#id#'] = function(_options){
+                    
+		if(jeedom.cmd.normalizeName('#name#') == 'on'){	
+		  if(parseInt(_options.display_value) >= 1 ) {
+			  $('.cmd[data-cmd_uid=#uid#]').hide();
+		  }
+          else{
+			  $('.cmd[data-cmd_uid=#uid#]').show();
+		  }}
+          else{
+		  if(parseInt(_options.display_value) <= 0 ) {
+				$('.cmd[data-cmd_uid=#uid#]').hide();
+			}else{
+				$('.cmd[data-cmd_uid=#uid#]').show();
+		  }}
+          
+      if ('#time#' == 'duree') {  
+        jeedom.cmd.displayDuration(_options.valueDate,  $('.cmd[data-cmd_id=#id#] .timeCmd'));
+          }
+      else if ('#time#' == 'date') {
+      	var date = new Date(_options.valueDate);
+		var format = $.datepicker.formatDate('D dd/mm', date);
+		var time = "à "+date.getHours()+":"+(date.getMinutes()<10?'0':'')+date.getMinutes();
+        $('.cmd[data-cmd_id=#id#] .timeCmd').html(format+'<br>'+time);
+      	}
+      else if ('#time#' == 'heure') {
+        var date = new Date(_options.valueDate);
+        var time = "à "+date.getHours()+":"+(date.getMinutes()<10?'0':'')+date.getMinutes()+":"+(date.getSeconds()<10?'0':'')+date.getSeconds()+"";
+        $('.cmd[data-cmd_id=#id#] .timeCmd').html(time);
+      	}
+        }    
+      
+    jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+    $('.cmd[data-cmd_uid=#uid#] .iconCmd#uid#').off().on('click', function () {
+      jeedom.cmd.execute({id: '#id#'});
+    });
+  </script>
+</div>
