@@ -12,15 +12,14 @@
   opacity:0.8;
   }
 </style>
-<script>  
-  var valueH = is_numeric('#hauteur#') ? parseFloat('#hauteur#'):75;
+<script>    
+  jeedom.cmd.update['#id#'] = function(_options){
+	var valueH = is_numeric('#hauteur#') ? parseFloat('#hauteur#'):75;
   	var valueL = is_numeric('#largeur#') ? parseFloat('#largeur#'):75;
   	var paramTaille = 'height='+valueH+'px width='+valueL+'px';
  	var valueType = ('#type#' !='#'+'type#') ? "#type#":"defaut";
   	var valueFile = ('#extension#' !='#'+'extension#') ? "#extension#":"png";
-  
-  jeedom.cmd.update['#id#'] = function(_options){
-      var cmd = $('.cmd[data-cmd_id=#id#]');
+    var cmd = $('.cmd[data-cmd_id=#id#]');
       
       if (_options.display_value == '1' || _options.display_value >= 1 || _options.display_value == '99' || _options.display_value == 99 || _options.display_value == 'on') {
         cmd.attr('data-state','on')
