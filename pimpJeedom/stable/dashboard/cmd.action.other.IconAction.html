@@ -1,0 +1,72 @@
+<div class="cmd tooltips cmd-widget" data-type="action" data-subtype="other" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
+ <div class="title #hide_name#">
+    <div class="cmdName">#valueName#</div>
+  </div>
+  	<div id="iconCmdAction" class="cursor tooltips"></div>
+    <span class="timeCmd"></span>
+<style>
+#iconCmdAction:hover{
+  opacity:0.8;
+  }
+.timeCmd {
+  font-size:11px;
+  padding:2px 4px 2px 4px;
+  margin-top:4px;
+  line-height:1em!important;
+  display:inline-block!important;
+}
+</style>
+<script>
+  jeedom.cmd.update['#id#'] = function(_options){
+		let valueH = is_numeric('#height#') ? parseFloat('#height#'):75;
+  	let valueL = is_numeric('#width#') ? parseFloat('#width#'):75;
+  	let paramTaille = 'height='+valueH+'px width='+valueL+'px';
+ 		let valueType = ('#image#' !='#'+'image#') ? "#image#":"default";
+    let cmd = $('.cmd[data-cmd_id=#id#]');
+		('#CSS-time#' != '#'+'CSS-time#' && '#CSS-time#' != '') ? cmd.find('.timeCmd').attr('style','#CSS-time#') : '';
+
+    if (_options.display_value == '1' || _options.display_value >= 1 || _options.display_value == '99' || _options.display_value == 99 || _options.display_value == 'on') {
+      cmd.attr('data-state','on')
+      if (jeedom.cmd.normalizeName('#name#') == 'on') {
+        cmd.hide();
+      }else{
+        cmd.show().find('#iconCmdAction').empty().append('<img src="plugins/pimpJeedom/core/template/dashboard/cmd.action.other.IconAction/'+valueType+'_on.png" '+paramTaille+'>').css('padding','0 5px 0 5px');
+      }
+    } else {
+      cmd.attr('data-state','off');
+      if (jeedom.cmd.normalizeName('#name#') == 'off') {
+        cmd.hide();
+      }else{
+        cmd.show().find('#iconCmdAction').empty().append('<img src="plugins/pimpJeedom/core/template/dashboard/cmd.action.other.IconAction/'+valueType+'_off.png" '+paramTaille+'>').css('padding','0 5px 0 5px');
+      }
+    }
+
+		if (isset(_options.valueDate)) {
+			if ('#time#' == 'duration') {
+			  jeedom.cmd.displayDuration(_options.valueDate,cmd.find('.timeCmd'));
+			 }
+			 else if ('#time#' == 'date') {
+			  let week = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'];
+			   let date = new Date(_options.valueDate.replace(' ', 'T'));
+			   let t = _options.valueDate.split(/[- :]/);
+			   let format = week[date.getDay()]+" "+t[2]+"/"+t[1];
+			   let time = "à "+t[3]+":"+t[4];
+			   cmd.find('.timeCmd').html(format+'<br>'+time);
+			 }
+			 else if ('#time#' == 'hour') {
+			   let t = _options.valueDate.split(/[- :]/);
+			   let time = "à "+t[3]+":"+t[4]+":"+t[5];
+			   cmd.find('.timeCmd').html(time);
+			 } else {
+			   cmd.find('.timeCmd').remove();
+			 }
+		}
+
+  cmd.attr('title', '#name_display#')
+  }
+    jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+    $('.cmd[data-cmd_uid=#uid#] #iconCmdAction').off().on('click', function () {
+      jeedom.cmd.execute({id: '#id#'});
+    });
+  </script>
+</div>
