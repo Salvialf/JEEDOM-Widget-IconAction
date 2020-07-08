@@ -4,40 +4,35 @@
   </div>
   	<div id="iconCmdAction" class="cursor tooltips"></div>
     <span class="timeCmd"></span>
-<style>
-#iconCmdAction:hover{
-  opacity:0.8;
-  }
-.timeCmd {
-  font-size:11px;
-  padding:2px 4px 2px 4px;
-  margin-top:4px;
-  line-height:1em!important;
-  display:inline-block!important;
-}
-</style>
 <script>
   jeedom.cmd.update['#id#'] = function(_options){
 		let valueH = is_numeric('#height#') ? parseFloat('#height#'):75;
   	let valueL = is_numeric('#width#') ? parseFloat('#width#'):75;
   	let paramTaille = 'height='+valueH+'px width='+valueL+'px';
  		let valueType = ('#image#' !='#'+'image#') ? "#image#":"default";
+    let images = ["default","ampli", "ampli2", "ampoule", "applique", "applique2", "aquarium", "barreson", "bluray", "chainehifi", "dvd", "freewifi", "kodi", "lampadaire", "lampe", "lum1", "lum2", "lum3", "lumext", "nswitch", "playstation", "prise", "rad", "sapin", "spot", "tv", "wallplug", "wii", "xbox"];
     let cmd = $('.cmd[data-cmd_id=#id#]');
 		('#CSS-time#' != '#'+'CSS-time#' && '#CSS-time#' != '') ? cmd.find('.timeCmd').attr('style','#CSS-time#') : '';
+
+    if (images.includes(valueType)) {
+      path = 'plugins/pimpJeedom/core/template/dashboard/cmd.action.other.IconAction/';
+    } else {
+      path = 'data/img/IconAction/';
+    }
 
     if (_options.display_value == '1' || _options.display_value >= 1 || _options.display_value == '99' || _options.display_value == 99 || _options.display_value == 'on') {
       cmd.attr('data-state','on')
       if (jeedom.cmd.normalizeName('#name#') == 'on') {
         cmd.hide();
       }else{
-        cmd.show().find('#iconCmdAction').empty().append('<img src="plugins/pimpJeedom/core/template/dashboard/cmd.action.other.IconAction/'+valueType+'_on.png" '+paramTaille+'>').css('padding','0 5px 0 5px');
+        cmd.show().find('#iconCmdAction').empty().append('<img src="'+path+''+valueType+'_on.png" '+paramTaille+'>').css('padding','0 5px 0 5px');
       }
     } else {
       cmd.attr('data-state','off');
       if (jeedom.cmd.normalizeName('#name#') == 'off') {
         cmd.hide();
       }else{
-        cmd.show().find('#iconCmdAction').empty().append('<img src="plugins/pimpJeedom/core/template/dashboard/cmd.action.other.IconAction/'+valueType+'_off.png" '+paramTaille+'>').css('padding','0 5px 0 5px');
+        cmd.show().find('#iconCmdAction').empty().append('<img src="'+path+''+valueType+'_off.png" '+paramTaille+'>').css('padding','0 5px 0 5px');
       }
     }
 
@@ -69,4 +64,16 @@
       jeedom.cmd.execute({id: '#id#'});
     });
   </script>
+  <style>
+#iconCmdAction:hover{
+  opacity:0.8;
+}
+.timeCmd {
+  font-size:11px;
+  padding:2px 4px 2px 4px;
+  margin-top:4px;
+  line-height:1em!important;
+  display:inline-block!important;
+}
+</style>
 </div>
